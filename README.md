@@ -1,1 +1,6 @@
-# med-server
+# Medication Management #
+
+In your preferred termina, run:
+```
+yarn start
+```
