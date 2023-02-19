@@ -1,0 +1,35 @@
+version: '3.9'
+services:
+  med-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: dbuser
+      POSTGRES_PASSWORD: dbpassword
+      POSTGRES_DB: med-db
+    ports:
+      - 5432:5432
+    restart: always
+    healthcheck:
+      test: psql -U dbuser -d med-db -c "select 1"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  med-api:
+    container_name: med-api
+    build: .
+    image: node:latest
+    depends_on:
+      - med-db
+    ports:
+      - 3000:3000
+    command: ["./med-api-startup.sh"]
+    environment:
+      NODE_ENV: development
+      DB_HOST: med-db
+      DB_PORT: 5432
+      DB_USER: dbuser
+      DB_PASSWORD: dbpassword
+      DB_NAME: med-db
+    volumes:
+      - './:/med-server'
+    working_dir: /med-server
