@@ -1,48 +1,61 @@
-const { Client } = require('pg');
+const { Sequelize } = require('sequelize');
 const fs = require('fs');
 
-const client = new Client({
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME
+  dialect: 'postgres',
 });
 
-client.connect();
+const User = sequelize.define('User', {
+  username: {
+    type: Sequelize.STRING,
+    unique: true,
+    allowNull: false,
+  },
+  email: {
+    type: Sequelize.STRING,
+    unique: true,
+    allowNull: false,
+  },
+  password: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  role: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+});
 
-console.log('Prepopulating database...');
-
-client.query(`
-  CREATE TABLE IF NOT EXISTS users (
-    id serial PRIMARY KEY,
-    username text NOT NULL,
-    email text NOT NULL
-  );
-`, (err, res) => {
-  console.log(err ? err.stack : 'Users table created');
-
+sequelize.sync().then(() => {
+  console.log('Database synchronized');
+  
+  console.log('Prepopulating database...');
+  
   fs.readFile('src/db-dev-data/users.json', 'utf8', (err, data) => {
     if (err) throw err;
     const users = JSON.parse(data);
 
     users.forEach((user) => {
-      client.query(`
-        SELECT * FROM users WHERE username = $1 AND email = $2;
-      `, [user.username, user.email], (err, res) => {
-        if (err) throw err;
-
-        if (res.rowCount === 0) {
-          client.query(`
-            INSERT INTO users (username, email)
-            VALUES ($1, $2);
-          `, [user.username, user.email], (err, res) => {
-            console.log(err ? err.stack : `Data inserted into users table: ${user.username}, ${user.email}`);
+      User.findOne({ where: { username: user.username, email: user.email } })
+      .then((existingUser) => {
+        if (!existingUser) {
+          User.create({ username: user.username, email: user.email, password: user.password })
+          .then(() => {
+            console.log(`Data inserted into users table: ${user.username}, ${user.email}`);
           });
         } else {
           console.log(`Data already exists in users table: ${user.username}, ${user.email}, no need to pre-populate`);
         }
       });
     });
+
   });
+}).catch((err) => {
+  console.error('Unable to connect to the database:', err);
 });
+
+module.exports = {
+  User,
+};

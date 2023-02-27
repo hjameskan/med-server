@@ -1,0 +1,15 @@
+[
+    { "id": 1,
+      "name": "Admin"
+    },
+    { "id": 2,
+      "name": "Doctor"
+    },
+    { "id": 3,
+      "name": "Patient"
+    },
+    { "id": 4,
+      "name": "Caregiver"
+    }
+  ]
+  

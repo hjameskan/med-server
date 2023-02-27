@@ -30,6 +30,7 @@ services:
       DB_USER: dbuser
       DB_PASSWORD: dbpassword
       DB_NAME: med-db
+      JWT_SECRET: secret
     volumes:
       - './:/med-server'
     working_dir: /med-server

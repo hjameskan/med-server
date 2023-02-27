@@ -1,6 +1,18 @@
 [
-    { "username": "testuser1", "email": "testuser1@example.com" },
-    { "username": "testuser2", "email": "testuser2@example.com" },
-    { "username": "testuser3", "email": "testuser3@example.com" }
+    { "username": "doctor1",
+      "email": "doctor1@example.com",
+      "password": "Asdf1234",
+      "roleId": 2
+    },
+    { "username": "patient1",
+      "email": "patient1@example.com",
+      "password": "Asdf1234",
+      "roleId": 3
+    },
+    { "username": "caregiver1",
+      "email": "caregiver1@example.com",
+      "password": "Asdf1234",
+      "roleId": 4
+    }
   ]
   
