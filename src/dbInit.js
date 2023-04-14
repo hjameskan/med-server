@@ -10,6 +10,10 @@ const {
     Role,
     UserRole,
     Token,
+    Drug,
+    Prescription,
+    DrugConflict,
+    DrugTakenRecord,
 } = Models;
 
 Object.values(Relations).forEach((relation) => relation(Models));
@@ -64,6 +68,97 @@ async function prepopulateDatabase() {
         console.log(`Data already exists in UserRole table: ${userRole.userId}, ${userRole.roleId}, no need to pre-populate`);
       }
     }
+
+    // Inject data from drugs.json
+    const drugsData = await fs.promises.readFile('src/db-dev-data/drugs.json', 'utf8');
+    const drugs = JSON.parse(drugsData);
+  
+    for (const drug of drugs) {
+      const existingDrug = await Drug.findOne({ where: { id: drug.id, name: drug.name } });
+      if (!existingDrug) {
+        await Drug.create({ id: drug.id, name: drug.name });
+        console.log(`Data inserted into Drug table: ${drug.id}, ${drug.name}`);
+      } else {
+        console.log(`Data already exists in Drug table: ${drug.id}, ${drug.name}, no need to pre-populate`);
+      }
+    }
+
+    // Inject data from drugsConflicts.json
+    const drugConflictsData = await fs.promises.readFile('src/db-dev-data/drugsConflicts.json', 'utf8');
+    const drugConflicts = JSON.parse(drugConflictsData);
+  
+    for (const drugConflict of drugConflicts) {
+      const existingDrugConflict = await DrugConflict.findOne({ where: { id: drugConflict.id, drugIdOne: drugConflict.drugIdOne, drugIdTwo: drugConflict.drugIdTwo } });
+      if (!existingDrugConflict) {
+        await DrugConflict.create({ id: drugConflict.id, drugIdOne: drugConflict.drugIdOne, drugIdTwo: drugConflict.drugIdTwo });
+        console.log(`Data inserted into DrugConflict table: ${drugConflict.id}, ${drugConflict.drugIdOne}, ${drugConflict.drugIdTwo}`);
+      } else {
+        console.log(`Data already exists in DrugConflict table: ${drugConflict.id}, ${drugConflict.drugIdOne}, ${drugConflict.drugIdTwo}, no need to pre-populate`);
+      }
+    }
+
+    // Inject data from prescriptions.json
+    const prescriptionsData = await fs.promises.readFile('src/db-dev-data/prescriptions.json', 'utf8');
+    const prescriptions = JSON.parse(prescriptionsData);
+
+    for (const prescription of prescriptions) {
+      const existingPrescription = await Prescription.findOne({
+        where: {
+          id: prescription.id,
+          patientId: prescription.patientId,
+          doctorId: prescription.doctorId,
+          drugId: prescription.drugId,
+          dosage: prescription.dosage,
+          frequency: prescription.frequency,
+          duration: prescription.duration,
+        },
+      });
+      if (!existingPrescription) {
+        await Prescription.create({
+          id: prescription.id,
+          patientId: prescription.patientId,
+          doctorId: prescription.doctorId,
+          drugId: prescription.drugId,
+          dosage: prescription.dosage,
+          frequency: prescription.frequency,
+          duration: prescription.duration,
+        });
+        console.log(`Data inserted into Prescription table: ${prescription.id}, ${prescription.patientId}, ${prescription.doctorId}, ${prescription.drugId}`);
+      } else {
+        console.log(`Data already exists in Prescription table: ${prescription.id}, ${prescription.patientId}, ${prescription.doctorId}, ${prescription.drugId}, no need to pre-populate`);
+      }
+    }
+
+    // Inject data from drugsTakenRecord.json
+    const drugsTakenRecordData = await fs.promises.readFile('src/db-dev-data/drugsTakenRecord.json', 'utf8');
+    const drugsTakenRecords = JSON.parse(drugsTakenRecordData);
+
+    for (const record of drugsTakenRecords) {
+      const existingRecord = await DrugTakenRecord.findOne({
+        where: {
+          id: record.id,
+          patientId: record.patientId,
+          prescriptionId: record.prescriptionId,
+          drugId: record.drugId,
+          dateTime: record.dateTime,
+          taken: record.taken,
+        },
+      });
+      if (!existingRecord) {
+        await DrugTakenRecord.create({
+          id: record.id,
+          patientId: record.patientId,
+          prescriptionId: record.prescriptionId,
+          drugId: record.drugId,
+          dateTime: record.dateTime,
+          taken: record.taken,
+        });
+        console.log(`Data inserted into DrugTakenRecord table: ${record.id}, ${record.patientId}, ${record.prescriptionId}, ${record.drugId}`);
+      } else {
+        console.log(`Data already exists in DrugTakenRecord table: ${record.id}, ${record.patientId}, ${record.prescriptionId}, ${record.drugId}, no need to pre-populate`);
+      }
+    }
+
   
   } catch (err) {
     console.error('Unable to connect to the database:', err);

@@ -1,0 +1,194 @@
+[
+  {
+    "id": 1,
+    "patientId": 1,
+    "prescriptionId": 1,
+    "drugId": 1,
+    "dateTime": "2023-04-08T08:00:00",
+    "taken": true
+  },
+  {
+    "id": 2,
+    "patientId": 2,
+    "prescriptionId": 2,
+    "drugId": 6,
+    "dateTime": "2023-04-08T08:30:00",
+    "taken": true
+  },
+  {
+    "id": 3,
+    "patientId": 2,
+    "prescriptionId": 3,
+    "drugId": 14,
+    "dateTime": "2023-04-08T22:00:00",
+    "taken": true
+  },
+  {
+    "id": 4,
+    "patientId": 3,
+    "prescriptionId": 4,
+    "drugId": 4,
+    "dateTime": "2023-04-08T09:00:00",
+    "taken": true
+  },
+  {
+    "id": 5,
+    "patientId": 3,
+    "prescriptionId": 5,
+    "drugId": 8,
+    "dateTime": "2023-04-08T20:00:00",
+    "taken": true
+  },
+  {
+    "id": 6,
+    "patientId": 1,
+    "prescriptionId": 6,
+    "drugId": 3,
+    "dateTime": "2023-04-08T08:00:00",
+    "taken": true
+  },
+  {
+    "id": 7,
+    "patientId": 2,
+    "prescriptionId": 7,
+    "drugId": 2,
+    "dateTime": "2023-04-08T08:30:00",
+    "taken": true
+  },
+  {
+    "id": 8,
+    "patientId": 3,
+    "prescriptionId": 8,
+    "drugId": 7,
+    "dateTime": "2023-04-08T09:00:00",
+    "taken": true
+  },
+  {
+    "id": 9,
+    "patientId": 1,
+    "prescriptionId": 1,
+    "drugId": 1,
+    "dateTime": "2023-04-09T08:00:00",
+    "taken": true
+  },
+  {
+    "id": 10,
+    "patientId": 2,
+    "prescriptionId": 2,
+    "drugId": 6,
+    "dateTime": "2023-04-09T08:30:00",
+    "taken": true
+  },
+  {
+    "id": 11,
+    "patientId": 2,
+    "prescriptionId": 3,
+    "drugId": 14,
+    "dateTime": "2023-04-09T22:00:00",
+    "taken": true
+  },
+  {
+    "id": 12,
+    "patientId": 3,
+    "prescriptionId": 4,
+    "drugId": 4,
+    "dateTime": "2023-04-09T09:00:00",
+    "taken": true
+  },
+  {
+    "id": 13,
+    "patientId": 3,
+    "prescriptionId": 5,
+    "drugId": 8,
+    "dateTime": "2023-04-09T20:00:00",
+    "taken": true
+  },
+  {
+    "id": 14,
+    "patientId": 1,
+    "prescriptionId": 6,
+    "drugId": 3,
+    "dateTime": "2023-04-09T08:00:00",
+    "taken": true
+  },
+  {
+    "id": 15,
+    "patientId": 2,
+    "prescriptionId": 7,
+    "drugId": 2,
+    "dateTime": "2023-04-09T08:30:00",
+    "taken": true
+  },
+  {
+    "id": 16,
+    "patientId": 3,
+    "prescriptionId": 8,
+    "drugId": 7,
+    "dateTime": "2023-04-09T09:00:00",
+    "taken": true
+  },
+  {
+    "id": 17,
+    "patientId": 1,
+    "prescriptionId": 1,
+    "drugId": 1,
+    "dateTime": "2023-04-10T08:00:00",
+    "taken": true
+  },
+  {
+    "id": 18,
+    "patientId": 2,
+    "prescriptionId": 2,
+    "drugId": 6,
+    "dateTime": "2023-04-10T08:30:00",
+    "taken": true
+  },
+  {
+    "id": 19,
+    "patientId": 2,
+    "prescriptionId": 3,
+    "drugId": 14,
+    "dateTime": "2023-04-10T22:00:00",
+    "taken": true
+  },
+  {
+    "id": 20,
+    "patientId": 3,
+    "prescriptionId": 4,
+    "drugId": 4,
+    "dateTime": "2023-04-10T09:00:00",
+    "taken": true
+  },
+  {
+    "id": 21,
+    "patientId": 3,
+    "prescriptionId": 5,
+    "drugId": 8,
+    "dateTime": "2023-04-10T20:00:00",
+    "taken": true
+  },
+  {
+    "id": 22,
+    "patientId": 1,
+    "prescriptionId": 6,
+    "drugId": 3,
+    "dateTime": "2023-04-10T08:00:00",
+    "taken": true
+  },
+  {
+    "id": 23,
+    "patientId": 2,
+    "prescriptionId": 7,
+    "drugId": 2,
+    "dateTime": "2023-04-10T08:30:00",
+    "taken": true
+  },
+  {
+    "id": 24,
+    "patientId": 3,
+    "prescriptionId": 8,
+    "drugId": 7,
+    "dateTime": "2023-04-10T09:00:00",
+    "taken": true
+  }
+]

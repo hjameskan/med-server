@@ -1,3 +1,10 @@
-module.exports = ({ User, UserRole }) => {
-    User.hasMany(UserRole, {as: 'UserRoles', foreignKey: 'userId'});
+module.exports = ({ User, UserRole, Role }) => {
+    User.belongsToMany(Role, {
+      through: UserRole,
+      foreignKey: 'userId',
+      otherKey: 'roleId'
+    });
   };
+
+  
+  

@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "drugIdOne": 1,
+    "drugIdTwo": 4
+  },
+  {
+    "id": 2,
+    "drugIdOne": 5,
+    "drugIdTwo": 9
+  },
+  {
+    "id": 3,
+    "drugIdOne": 10,
+    "drugIdTwo": 11
+  },
+  {
+    "id": 4,
+    "drugIdOne": 12,
+    "drugIdTwo": 13
+  }
+]
+    

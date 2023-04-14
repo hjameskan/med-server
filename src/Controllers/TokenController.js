@@ -1,0 +1,1 @@
+// Since the Token model is used for authentication and not intended for CRUD operations, it is not necessary to create a controller for it.

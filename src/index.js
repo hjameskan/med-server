@@ -5,6 +5,17 @@ const expressJwt = require('express-jwt');
 const bcrypt = require('bcryptjs');
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
+
+const { 
+  DrugRoutes,
+  DrugConflictRoutes,
+  DrugTakenRecordRoutes,
+  PrescriptionRoutes,
+  RoleRoutes,
+  UserRoutes,
+  UserRoleRoutes,
+} = require('./routes');
+
 const app = express();
 const {
   User,
@@ -21,6 +32,15 @@ app.use(express.json());
 // prepopulation of med-db for dev purposes
 // require('./db-prepopulate.js');
 require('./dbInit.js');
+
+// CRUD Routes
+app.use('/drugs', DrugRoutes);
+app.use('/drugConflicts', DrugConflictRoutes);
+app.use('/drugTakenRecords', DrugTakenRecordRoutes);
+app.use('/prescriptions', PrescriptionRoutes);
+app.use('/roles', RoleRoutes);
+app.use('/users', UserRoutes);
+app.use('/userRoles', UserRoleRoutes);
 
 // Signup route
 app.post('/signup', async (req, res) => {
@@ -88,6 +108,17 @@ app.post('/logout', async (req, res) => {
     res.status(500).send('Server error');
   }
 });
+
+
+// TODO: create patient profile
+
+// TODO: get user profile
+
+// TODO: generate suggestion for prescription
+
+// TODO: generate response for current patient condition
+
+// TODO: CV for pill classification
 
 // Protected route
 // app.get('/protected', expressJwt({ secret: process.env.JWT_SECRET }), (req, res) => {

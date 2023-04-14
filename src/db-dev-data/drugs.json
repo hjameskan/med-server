@@ -1,0 +1,59 @@
+[
+  {
+    "id": 1,
+    "name": "Donepezil"
+  },
+  {
+    "id": 2,
+    "name": "Rivastigmine"
+  },
+  {
+    "id": 3,
+    "name": "Galantamine"
+  },
+  {
+    "id": 4,
+    "name": "Memantine"
+  },
+  {
+    "id": 5,
+    "name": "Amitriptyline"
+  },
+  {
+    "id": 6,
+    "name": "Fluoxetine"
+  },
+  {
+    "id": 7,
+    "name": "Sertraline"
+  },
+  {
+    "id": 8,
+    "name": "Mirtazapine"
+  },
+  {
+    "id": 9,
+    "name": "Lorazepam"
+  },
+  {
+    "id": 10,
+    "name": "Olanzapine"
+  },
+  {
+    "id": 11,
+    "name": "Risperidone"
+  },
+  {
+    "id": 12,
+    "name": "Quetiapine"
+  },
+  {
+    "id": 13,
+    "name": "Zolpidem"
+  },
+  {
+    "id": 14,
+    "name": "Melatonin"
+  }
+]
+  
