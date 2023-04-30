@@ -1,10 +1,10 @@
-const DrugRoutes = require('./drugRoutes');
-const DrugConflictRoutes = require('./drugConflictRoutes');
-const DrugTakenRecordRoutes = require('./drugTakenRecordRoutes');
-const PrescriptionRoutes = require('./prescriptionRoutes');
-const RoleRoutes = require('./roleRoutes');
-const UserRoutes = require('./userRoutes');
-const UserRoleRoutes = require('./userRoleRoutes');
+const DrugRoutes = require('./DrugRoutes');
+const DrugConflictRoutes = require('./DrugConflictRoutes');
+const DrugTakenRecordRoutes = require('./DrugTakenRecordRoutes');
+const PrescriptionRoutes = require('./PrescriptionRoutes');
+const RoleRoutes = require('./RoleRoutes');
+const UserRoutes = require('./UserRoutes');
+const UserRoleRoutes = require('./UserRoleRoutes');
 
 module.exports = {
     DrugRoutes,

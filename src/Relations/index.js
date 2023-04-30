@@ -1,7 +1,7 @@
 const UserRelations = require('./UserRelations');
 const RoleRelations = require('./RoleRelations');
 const PrescriptionRelations = require('./PrescriptionRelations');
-const Drugrelations = require('./Drugrelations');
+const Drugrelations = require('./DrugRelations');
 const DrugConflictRelations = require('./DrugConflictRelations');
 const DrugTakenRecordRelations = require('./DrugTakenRecordRelations');
 

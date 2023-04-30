@@ -14,7 +14,7 @@ const {
   RoleRoutes,
   UserRoutes,
   UserRoleRoutes,
-} = require('./routes');
+} = require('./Routes');
 
 const app = express();
 const {
