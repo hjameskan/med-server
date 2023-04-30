@@ -1,1 +1,1 @@
-npm install && npm start
+cd /var/app/current/ && npm install && npm start
