@@ -1,3 +1,5 @@
 #!/bin/bash
-
-cd /var/app/current/ && npm install && npm run start &
+npm install -g yarn
+cd /var/app/current/
+yarn
+yarn start &
