@@ -17,7 +17,7 @@ services:
   med-api:
     container_name: med-api
     build: .
-    image: node:latest
+    image: node:18
     depends_on:
       - med-db
     ports:
