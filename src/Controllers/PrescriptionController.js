@@ -1,4 +1,4 @@
-const { Prescription } = require('../Models');
+const { Prescription, Drug, User } = require('../Models');
 
 // Get all prescriptions
 exports.getAllPrescriptions = async (req, res) => {
@@ -52,3 +52,28 @@ exports.deletePrescription = async (req, res) => {
     res.status(500).json({ message: 'Error deleting prescription', error });
   }
 };
+
+// Get all prescriptions by user id
+exports.getPrescriptionsByUserId = async (req, res) => {
+  try {
+    const prescriptions = await Prescription.findAll({
+      where: {
+        patientId: req.params.userId
+      },
+      include: [
+        {
+          model: User,
+          as: 'doctor'
+        },
+        {
+          model: Drug,
+          as: 'drug'
+        }
+      ]
+    });
+    res.status(200).json(prescriptions);
+  } catch (error) {
+    res.status(500).json({ message: `Error retrieving prescriptions: ${error}`, error });
+  }
+};
+

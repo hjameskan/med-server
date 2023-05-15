@@ -52,3 +52,28 @@ exports.deleteDrugTakenRecord = async (req, res) => {
     res.status(500).json({ message: 'Error deleting drug taken record', error });
   }
 };
+
+// Get all drugs taken history by user id
+exports.getDrugsTakenRecordByUserId = async (req, res) => {
+  try {
+    const prescriptions = await DrugTakenRecord.findAll({
+      where: {
+        patientId: req.params.id
+      },
+      include: ['drug', 'prescription'],
+      // include: [
+      //   {
+      //     model: User,
+      //     as: 'doctor'
+      //   },
+      //   {
+      //     model: Drug,
+      //     as: 'drug'
+      //   }
+      // ]
+    });
+    res.status(200).json(prescriptions);
+  } catch (error) {
+    res.status(500).json({ message: `Error retrieving prescriptions: ${error}`, error });
+  }
+};

@@ -10,11 +10,12 @@ module.exports = ({ Prescription, User, Drug, DrugTakenRecord }) => {
     });
   
     Prescription.belongsTo(Drug, {
+      as: 'drug',
       foreignKey: 'drugId',
     });
 
     Prescription.hasMany(DrugTakenRecord, {
-        foreignKey: 'prescriptionId',
-      });
+      foreignKey: 'prescriptionId',
+    });
   };
   

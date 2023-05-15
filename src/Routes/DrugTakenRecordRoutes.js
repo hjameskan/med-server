@@ -8,4 +8,6 @@ router.post('/', drugTakenRecordController.createDrugTakenRecord);
 router.put('/:id', drugTakenRecordController.updateDrugTakenRecord);
 router.delete('/:id', drugTakenRecordController.deleteDrugTakenRecord);
 
+router.get('/user/:id', drugTakenRecordController.getDrugsTakenRecordByUserId);
+
 module.exports = router;

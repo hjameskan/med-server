@@ -8,4 +8,6 @@ router.post('/', prescriptionController.createPrescription);
 router.put('/:id', prescriptionController.updatePrescription);
 router.delete('/:id', prescriptionController.deletePrescription);
 
+router.get('/user/:userId', prescriptionController.getPrescriptionsByUserId);
+
 module.exports = router;

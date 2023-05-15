@@ -1,4 +1,4 @@
-module.exports = ({ Drug, DrugConflict }) => {
+module.exports = ({ Drug, DrugConflict, Prescription }) => {
     Drug.hasMany(DrugConflict, {
       as: 'conflictingDrugsOne',
       foreignKey: 'drugIdOne',
@@ -7,6 +7,11 @@ module.exports = ({ Drug, DrugConflict }) => {
     Drug.hasMany(DrugConflict, {
       as: 'conflictingDrugsTwo',
       foreignKey: 'drugIdTwo',
+    });
+    
+    Drug.hasMany(Prescription, {
+      as: 'prescriptions',
+      foreignKey: 'drugId',
     });
   };
   

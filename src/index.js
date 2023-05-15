@@ -81,7 +81,8 @@ app.post('/login', async (req, res) => {
     }
     const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '12h' });
     await Token.create({ token });
-    res.json({ token, username: user.username, email: user.email });
+    const userRoles = await user.getRoles();
+    res.json({ token, username: user.username, email: user.email, userId: user.id, roles: userRoles });
   } catch (err) {
     console.log(err);
     res.status(500).send('An error occurred while logging in');
