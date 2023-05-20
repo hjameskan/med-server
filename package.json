@@ -4,9 +4,6 @@
   "main": "src/index.js",
   "repository": "git@github.com:hjameskan/med-server.git",
   "license": "MIT",
-  "engines": {
-    "node": "^18.0.0"
-  },
   "dependencies": {
     "bcrypt": "^5.1.0",
     "bcryptjs": "^2.4.3",
