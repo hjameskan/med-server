@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs');
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 
-const { 
+const {
   DrugRoutes,
   DrugConflictRoutes,
   DrugTakenRecordRoutes,
@@ -21,6 +21,7 @@ const {
   User,
   UserRole,
   Token,
+  DrugTakenRecord,
 } = require('./Models');
 
 const port = 3000;
@@ -125,6 +126,32 @@ app.post('/logout', async (req, res) => {
 // app.get('/protected', expressJwt({ secret: process.env.JWT_SECRET }), (req, res) => {
 //   res.send(`Welcome to the protected route, ${req.user.username}!`);
 // });
+
+
+// update "taken" status upon receiving confirmation
+app.post('/confirmTaken', async (req, res) => {
+  const { success } = req.body;
+  try {
+    if (!success) {
+      return res.status(400).send('Drugs not taken yet');
+    }
+    // get the most recent drugTakenRecord of patientId=2
+    const maxIdRecord = await DrugTakenRecord.findOne({
+      attributes: [[Sequelize.literal('MAX("id")'), "maxId"]],
+      where: { patientId: 2 }
+    });
+    console.log("maxId is: " + maxIdRecord.get("maxId"));
+
+    if (!maxIdRecord) {
+      return res.status(400).send('No drug taken record exists');
+    }
+    await DrugTakenRecord.update({"taken": success}, { where: { id: maxIdRecord.get("maxId") } });
+    res.status(200).send('confirmed taken successfully');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server error while confirming drug taken');
+  }
+});
 
 app.get('/', (req, res) => {
   res.send('Hello World2!');
