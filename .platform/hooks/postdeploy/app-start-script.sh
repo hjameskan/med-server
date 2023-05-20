@@ -10,6 +10,7 @@ source ~/.bashrc
 
 # build the app
 cd /var/app/current/
+rm -rf /var/app/current/node_modules
 yarn
 
 export $(cat /opt/elasticbeanstalk/deployment/env | xargs)

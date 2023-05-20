@@ -6,6 +6,8 @@ const bcrypt = require('bcryptjs');
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 
+// require('./FCMInit.js');
+
 const { 
   DrugRoutes,
   DrugConflictRoutes,
