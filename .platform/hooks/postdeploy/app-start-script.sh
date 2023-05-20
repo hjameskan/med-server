@@ -9,6 +9,7 @@ source ~/.bashrc
 
 # build the app
 cd /var/app/current/
+rm -rf /var/app/current/node_modules
 yarn
 
 # no need to start the app, elastic beanstalk will do it for us
