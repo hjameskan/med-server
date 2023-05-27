@@ -70,5 +70,77 @@
       "dosage": 50,
       "frequency": 2,
       "duration": 90
+    },
+    {
+      "id": 9,
+      "patientId": 2,
+      "doctorId": 1,
+      "drugId": 1,
+      "dosage": 1,
+      "frequency": 4,
+      "duration": 90
+    },
+    {
+      "id": 10,
+      "patientId": 2,
+      "doctorId": 1,
+      "drugId": 4,
+      "dosage": 1,
+      "frequency": 4,
+      "duration": 90
+    },
+    {
+      "id": 11,
+      "patientId": 2,
+      "doctorId": 1,
+      "drugId": 5,
+      "dosage": 1,
+      "frequency": 4,
+      "duration": 90
+    },
+    {
+      "id": 12,
+      "patientId": 2,
+      "doctorId": 1,
+      "drugId": 9,
+      "dosage": 1,
+      "frequency": 4,
+      "duration": 90
+    },
+    {
+      "id": 13,
+      "patientId": 2,
+      "doctorId": 1,
+      "drugId": 10,
+      "dosage": 1,
+      "frequency": 4,
+      "duration": 90
+    },
+    {
+      "id": 14,
+      "patientId": 2,
+      "doctorId": 1,
+      "drugId": 11,
+      "dosage": 1,
+      "frequency": 4,
+      "duration": 90
+    },
+    {
+      "id": 15,
+      "patientId": 2,
+      "doctorId": 1,
+      "drugId": 12,
+      "dosage": 1,
+      "frequency": 4,
+      "duration": 90
+    },
+    {
+      "id": 16,
+      "patientId": 2,
+      "doctorId": 1,
+      "drugId": 13,
+      "dosage": 1,
+      "frequency": 4,
+      "duration": 90
     }
   ]

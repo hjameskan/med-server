@@ -14,4 +14,3 @@ module.exports = ({ Drug, DrugConflict, Prescription }) => {
       foreignKey: 'drugId',
     });
   };
-  

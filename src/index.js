@@ -22,6 +22,7 @@ const {
   UserRole,
   Token,
   DrugTakenRecord,
+  Drug,
 } = require('./Models');
 
 const port = 3000;
@@ -128,25 +129,25 @@ app.post('/logout', async (req, res) => {
 // });
 
 
-// update "taken" status upon receiving confirmation
 app.post('/confirmTaken', async (req, res) => {
-  const { success } = req.body;
   try {
+    const { success, patientId, medicationIds } = req.body;
     if (!success) {
       return res.status(400).send('Drugs not taken yet');
     }
-    // get the most recent drugTakenRecord of patientId=2
-    const maxIdRecord = await DrugTakenRecord.findOne({
-      attributes: [[Sequelize.literal('MAX("id")'), "maxId"]],
-      where: { patientId: 2 }
-    });
-    console.log("maxId is: " + maxIdRecord.get("maxId"));
+    
+    for (let medicationId of medicationIds) {
+      // Check if drug exists
+      const drug = await Drug.findOne({ where: { id: medicationId } });
+      if (!drug) {
+        return res.status(400).json({ error: `Drug with id ${medicationId} not found` });
+      }
 
-    if (!maxIdRecord) {
-      return res.status(400).send('No drug taken record exists');
+      await DrugTakenRecord.create({ patientId, drugId: medicationId, dateTime: new Date(), taken: true });
     }
-    await DrugTakenRecord.update({"taken": success}, { where: { id: maxIdRecord.get("maxId") } });
+
     res.status(200).send('confirmed taken successfully');
+
   } catch (error) {
     console.error(error);
     res.status(500).send('Server error while confirming drug taken');

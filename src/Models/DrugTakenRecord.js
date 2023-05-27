@@ -5,8 +5,7 @@ const DrugTakenRecord = sequelize.define('DrugTakenRecord', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
-    allowNull: false,
-    unique: true,
+    autoIncrement: true,
   },
   patientId: {
     type: DataTypes.INTEGER,
@@ -14,7 +13,7 @@ const DrugTakenRecord = sequelize.define('DrugTakenRecord', {
   },
   prescriptionId: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: true,
   },
   drugId: {
     type: DataTypes.INTEGER,

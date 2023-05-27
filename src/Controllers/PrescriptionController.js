@@ -1,4 +1,4 @@
-const { Prescription, Drug, User } = require('../Models');
+const { Prescription, Drug, User, DrugConflict } = require('../Models');
 
 // Get all prescriptions
 exports.getAllPrescriptions = async (req, res) => {
@@ -56,24 +56,60 @@ exports.deletePrescription = async (req, res) => {
 // Get all prescriptions by user id
 exports.getPrescriptionsByUserId = async (req, res) => {
   try {
-    const prescriptions = await Prescription.findAll({
-      where: {
-        patientId: req.params.userId
-      },
-      include: [
-        {
-          model: User,
-          as: 'doctor'
+      const prescriptions = (await Prescription.findAll({
+        where: {
+          patientId: req.params.userId
         },
-        {
-          model: Drug,
-          as: 'drug'
+        include: [
+          {
+            model: User,
+            as: 'doctor'
+          },
+          {
+            model: Drug,
+            as: 'drug'
+          }
+        ]
+      })).map(instance => instance.get({ plain: true })); // Converting instances to plain objects.
+
+      
+      const drugConflictList = (await DrugConflict.findAll()).map(instance => instance.get({ plain: true })); // Converting instances to plain objects.
+      
+      // initialize drugConflictList.length * drugConflictList.length 2d array for contraindication check
+      const drugCount = await Drug.count();
+
+      const conflictList2dArray = [];
+      for (let i = 0; i < drugCount + 1; i++) {
+        const row = [];
+        for (let j = 0; j < drugCount + 1; j++) {
+          row.push(0);
         }
-      ]
-    });
+        conflictList2dArray.push(row);
+      }
+      
+      drugConflictList.forEach((conflict) => {
+        const { drugIdOne, drugIdTwo } = conflict;
+        conflictList2dArray[drugIdOne][drugIdTwo] = 1;
+        conflictList2dArray[drugIdTwo][drugIdOne] = 1;
+      });
+  
+      // contraindication check
+      for( let i = 0; i < prescriptions.length; i++) {
+        for (let j = i + 1; j < prescriptions.length; j++) {
+          const { drugId: drugIdOne } = prescriptions[i];
+          const { drugId: drugIdTwo } = prescriptions[j];
+          if (conflictList2dArray[drugIdOne][drugIdTwo] === 1) {
+            prescriptions[i].hasConflict = true;
+            (prescriptions[i].conflictDrugs = prescriptions[i].conflictDrugs || []).push(prescriptions[j].drug);
+            prescriptions[j].hasConflict = true;
+            (prescriptions[j].conflictDrugs = prescriptions[j].conflictDrugs || []).push(prescriptions[i].drug);
+          }
+        }
+      }
+
+
     res.status(200).json(prescriptions);
   } catch (error) {
     res.status(500).json({ message: `Error retrieving prescriptions: ${error}`, error });
   }
 };
-

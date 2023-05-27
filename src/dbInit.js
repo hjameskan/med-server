@@ -18,6 +18,17 @@ const {
 
 Object.values(Relations).forEach((relation) => relation(Models));
 
+// This function will reset the sequence, for injected ids to start from the max id + 1
+async function resetSequence(sequelize, tableName, columnName) {
+  console.log(`Resetting sequence for ${tableName}...`);
+  const maxIdResult = await sequelize.query(`SELECT MAX(${columnName}) FROM "${tableName}"`);
+  const maxId = maxIdResult[0][0].max + 1 || 1;
+  console.log(`Resetting sequence for ${tableName} to start from ${maxId}`);
+  // await sequelize.query(`SELECT setval(pg_get_serial_sequence("${tableName}", "${columnName}"), ${maxId}, false)`);
+  await sequelize.query(`SELECT setval((SELECT pg_get_serial_sequence('"${tableName}"', '${columnName}')), ${maxId}, false)`);
+
+}
+
 async function prepopulateDatabase() {
   try {
     await sequelize.sync();
@@ -159,6 +170,8 @@ async function prepopulateDatabase() {
       }
     }
 
+    
+    await resetSequence(sequelize, 'DrugTakenRecords', 'id'); // Reset sequence for DrugTakenRecords table
   
   } catch (err) {
     console.error('Unable to connect to the database:', err);
