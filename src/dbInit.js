@@ -24,7 +24,6 @@ async function resetSequence(sequelize, tableName, columnName) {
   const maxIdResult = await sequelize.query(`SELECT MAX(${columnName}) FROM "${tableName}"`);
   const maxId = maxIdResult[0][0].max + 1 || 1;
   console.log(`Resetting sequence for ${tableName} to start from ${maxId}`);
-  // await sequelize.query(`SELECT setval(pg_get_serial_sequence("${tableName}", "${columnName}"), ${maxId}, false)`);
   await sequelize.query(`SELECT setval((SELECT pg_get_serial_sequence('"${tableName}"', '${columnName}')), ${maxId}, false)`);
 
 }
