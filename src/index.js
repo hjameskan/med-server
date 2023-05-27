@@ -6,9 +6,7 @@ const bcrypt = require('bcryptjs');
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 
-// require('./FCMInit.js');
-
-const { 
+const {
   DrugRoutes,
   DrugConflictRoutes,
   DrugTakenRecordRoutes,
@@ -23,6 +21,8 @@ const {
   User,
   UserRole,
   Token,
+  DrugTakenRecord,
+  Drug,
 } = require('./Models');
 
 const port = 3000;
@@ -127,6 +127,32 @@ app.post('/logout', async (req, res) => {
 // app.get('/protected', expressJwt({ secret: process.env.JWT_SECRET }), (req, res) => {
 //   res.send(`Welcome to the protected route, ${req.user.username}!`);
 // });
+
+
+app.post('/confirmTaken', async (req, res) => {
+  try {
+    const { success, patientId, medicationIds } = req.body;
+    if (!success) {
+      return res.status(400).send('Drugs not taken yet');
+    }
+    
+    for (let medicationId of medicationIds) {
+      // Check if drug exists
+      const drug = await Drug.findOne({ where: { id: medicationId } });
+      if (!drug) {
+        return res.status(400).json({ error: `Drug with id ${medicationId} not found` });
+      }
+
+      await DrugTakenRecord.create({ patientId, drugId: medicationId, dateTime: new Date(), taken: true });
+    }
+
+    res.status(200).send('confirmed taken successfully');
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server error while confirming drug taken');
+  }
+});
 
 app.get('/', (req, res) => {
   res.send('Hello World2!');
